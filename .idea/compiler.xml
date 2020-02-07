@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JavaHttpServer" target="11" />
       <module name="JavaHTTPServer" target="11" />
+      <module name="JavaHttpServer" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
