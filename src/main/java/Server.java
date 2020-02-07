@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
 // Each Client Connection will be managed in a dedicated Thread
 public class Server implements Runnable{
 
-    static final File WEB_ROOT = new File("Server/src/main/resources");
+    static final File WEB_ROOT = new File("src/main/resources");
     static final String DEFAULT_FILE = "index.html";
     static final String FILE_NOT_FOUND = "404.html";
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
@@ -114,7 +114,7 @@ public class Server implements Runnable{
 
                     // send HTTP Headers
                     out.print("HTTP/1.1 200 OK \r\n");
-                    out.print("Server: Java HTTP Server from SSaurel : 1.0 \r\n");
+                    out.print("Server: JavaHttpServer from Martins Änglar : 1.0 \r\n");
                     out.print("Date: " + new Date() + "\r\n");
                     out.print("Content-type: " + content + "\r\n");
                     out.print("Content-length: " + fileLength + "\r\n");
@@ -188,7 +188,7 @@ public class Server implements Runnable{
         byte[] fileData = readFileData(file, fileLength);
 
         out.print("HTTP/1.1 404 File Not Found\r\n");
-        out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
+        out.print("Server: Java HTTP Server from Martins Änglar : 1.0\r\n");
         out.print("Date: " + new Date() + "\r\n");
         out.print("Content-type: " + content + "\r\n");
         out.print("Content-length: " + fileLength + "\r\n");
