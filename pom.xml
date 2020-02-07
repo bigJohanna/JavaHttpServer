@@ -6,7 +6,7 @@
 
     <groupId>se.iths.javahttpserver</groupId>
     <artifactId>JavaHttpServer</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
 
@@ -22,9 +22,5 @@
                 </configuration>
             </plugin>
         </plugins>
-
-
-
-
     </build>
 </project>
