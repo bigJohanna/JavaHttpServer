@@ -89,7 +89,7 @@ public class Server implements Runnable{
 
                 // we send HTTP Headers with data to client
                 out.print("HTTP/1.1 501 Not Implemented\r\n");
-                out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
+                out.print("Server: Java HTTP Server from Martins Änglar : 1.0\r\n");
                 out.print("Date: " + new Date() + "\r\n");
                 out.print("Content-type: " + contentMimeType + "\r\n");
                 out.print("Content-length: " + fileLength + "\r\n");
