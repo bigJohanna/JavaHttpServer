@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/JavaHttpServer.iml" filepath="$PROJECT_DIR$/.idea/JavaHttpServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Plugin/Plugin.iml" filepath="$PROJECT_DIR$/../Plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/../SPI/SPI.iml" filepath="$PROJECT_DIR$/../SPI/SPI.iml" />
     </modules>
   </component>
