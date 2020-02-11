@@ -34,9 +34,9 @@ public class ParseRequest {
 
 
 
-        while (in.readLine().getClass() != null) {
-            reqIn.headers.put( hej + hej....)
-        }
+        //while (in.readLine().getClass() != null) {
+            //reqIn.headers.put( hej + hej....)
+        //}
 
         /*
 
