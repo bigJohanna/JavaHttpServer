@@ -6,8 +6,14 @@
 
     <groupId>se.iths.javahttpserver</groupId>
     <artifactId>JavaHttpServer</artifactId>
+    <packaging>pom</packaging>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>Plugin</module>
+        <module>SPI</module>
+        <module>Server</module>
+    </modules>
+
 
     <properties>
         <java.version>1.11</java.version>
