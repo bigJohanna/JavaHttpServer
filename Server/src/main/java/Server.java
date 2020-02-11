@@ -6,10 +6,6 @@ import java.util.Date;
 import java.util.StringTokenizer;
 
 
-
-
-// The tutorial can be found just here on the SSaurel's Blog :
-// https://www.ssaurel.com/blog/create-a-simple-http-web-server-in-java
 // Each Client Connection will be managed in a dedicated Thread
 public class Server implements Runnable{
 
@@ -71,12 +67,35 @@ public class Server implements Runnable{
             dataOut = new BufferedOutputStream(connect.getOutputStream());
 
             //parse the request to a javaObject
-            TheRequest theRequest = parseRequestToJavaObject(in);
+
+            TheRequest theRequest = new TheRequest();
+            ParseRequest parseRequest = new ParseRequest();
+
+            TheRequest result = parseRequest.parseRequestToJavaObject(theRequest, in);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // we support only GET and HEAD methods, we check
-            if (!theRequest.getMethod().equals("GET")  &&  !theRequest.getMethod().equals("HEAD")) {
+            if (result.getStartLineImplementation().equals("GET") ) {// &&  !theRequest.getMethod().equals("HEAD")) {
                 if (verbose) {
-                    System.out.println("501 Not Implemented : " + theRequest.getMethod() + " method.");
+                    System.out.println("501 Not Implemented : " + result.getStartLineImplementation() + " method.");
                 }
 
                 // we return the not supported file to the client
@@ -99,6 +118,10 @@ public class Server implements Runnable{
                 dataOut.flush();
 
             } else {
+
+                System.out.println(" finish ");
+
+                /*
                 // GET or HEAD method
                 if (theRequest.getFile().endsWith("/")) {
                     fileRequested += DEFAULT_FILE;
@@ -127,6 +150,8 @@ public class Server implements Runnable{
                 if (verbose) {
                     System.out.println("File " + fileRequested + " of type " + content + " returned");
                 }
+
+                 */
 
             }
 
@@ -201,7 +226,7 @@ public class Server implements Runnable{
             System.out.println("File " + fileRequested + " not found");
         }
     }
-
+/*
     public TheRequest parseRequestToJavaObject(BufferedReader in) throws IOException {
         //requestObject
         TheRequest theRequest = new TheRequest();
@@ -234,5 +259,6 @@ public class Server implements Runnable{
 
         return theRequest;
     }
+*/
 
 }
