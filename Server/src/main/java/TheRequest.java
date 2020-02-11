@@ -1,8 +1,11 @@
 import java.util.HashMap;
 
 public class TheRequest {
+    
+    
+    String StartLineImplementation;
+    String StartLineStatus;
 
-        String startLine;
     HashMap<String, String> headers = new HashMap<String, String>();
     String body;
 
@@ -13,15 +16,7 @@ public class TheRequest {
         this.headers.put(key, value);
     }
 
-    public String getStartLine() {
-        return startLine;
-    }
-
-    public void setStartLine(String startLine) {
-        this.startLine = startLine;
-    }
-
-    public HashMap<String, String> getHeaders() {
+   public HashMap<String, String> getHeaders() {
         return headers;
     }
 
@@ -34,78 +29,19 @@ public class TheRequest {
     }
 
 
-
-
-
-
-
-
-    // OLD CODE
-    
-    private String method;
-    private String file;
-    private String host;
-    private String userAgent;
-    private String connection;
-    private String accept;
-
-    public TheRequest() {
+    public String getStartLineImplementation() {
+        return StartLineImplementation;
     }
 
-    public TheRequest(String method, String file, String host, String userAgent, String connection, String accept) {
-        this.method = method;
-        this.file = file;
-        this.host = host;
-        this.userAgent = userAgent;
-        this.connection = connection;
-        this.accept = accept;
+    public void setStartLineImplementation(String startLineImplementation) {
+        StartLineImplementation = startLineImplementation;
     }
 
-    public String getConnection() {
-        return connection;
+    public String getStartLineStatus() {
+        return StartLineStatus;
     }
 
-    public void setConnection(String connection) {
-        this.connection = connection;
-    }
-
-    public String getAccept() {
-        return accept;
-    }
-
-    public void setAccept(String accept) {
-        this.accept = accept;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
+    public void setStartLineStatus(String startLineStatus) {
+        StartLineStatus = startLineStatus;
     }
 }
