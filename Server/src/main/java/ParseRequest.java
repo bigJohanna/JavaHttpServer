@@ -1,13 +1,5 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
-
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Date;
-import java.util.StringTokenizer;
-
 
 
 public class ParseRequest {
@@ -17,29 +9,43 @@ public class ParseRequest {
 
     // Denna metod bör skrivas om för att parsa den nya typen av TheRequest
 
-    public TheRequest parseRequestToJavaObject(TheRequest reqIn, BufferedReader in) throws IOException {
+    public HTTPRequest parseRequestToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
+        /*
+        Split startline
+                Split headers
+                        hitta empty startline
+                            hitta body, gör nått.
 
+        */
 
         //Line 1 of request ("GET /index.html HTTP/1.1")
         // Split by space
         String[] splitHead = in.readLine().split(" ");
         reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
+        reqIn.setStartLineURL(splitHead[1]);
         reqIn.setStartLineStatus(splitHead[2]);
-        // För test
-        //System.out.println(reqIn.getStartLineImplementation());
-        //System.out.println(reqIn.getStartLineStatus());
 
-        //set hostname and user-agent name from line 2 and 3 from request
-        // reqIn.setStartLine(in.readLine());
+        System.out.println(reqIn.StartLineURL);
 
 
+        // Get headers
+        String headerLine  = "test";
 
-        //while (in.readLine().getClass() != null) {
-            //reqIn.headers.put( hej + hej....)
-        //}
+        while (!headerLine.isEmpty()) {
+            headerLine = in.readLine();
+             String[] splitHeader = headerLine.split(":", 2);
+            if(splitHeader.length > 1)
+            reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
 
-        /*
+        }
 
+        reqIn.getHeaders().entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
+
+
+
+/*
         {
         reqIn.setUserAgent(in.readLine());
         reqIn.setConnection(in.readLine());
@@ -62,7 +68,7 @@ public class ParseRequest {
         System.out.println("Accept of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + reqIn.getAccept());
         //System.out.println("Body of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + );
 
-            */
+*/
 
         return  reqIn;
     }

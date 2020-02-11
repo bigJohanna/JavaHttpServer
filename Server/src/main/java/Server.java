@@ -3,21 +3,20 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
-import java.util.StringTokenizer;
 
 
 // Each Client Connection will be managed in a dedicated Thread
-public class Server implements Runnable{
+    public class Server implements Runnable{
 
-    static final File WEB_ROOT = new File("Server/src/main/resources");
-    static final String DEFAULT_FILE = "index.html";
-    static final String FILE_NOT_FOUND = "404.html";
-    static final String METHOD_NOT_SUPPORTED = "not_supported.html";
-    // port to listen connection
-    static final int PORT = 8080;
+        static final File WEB_ROOT = new File("Server/src/main/resources");
+        static final String DEFAULT_FILE = "index.html";
+        static final String FILE_NOT_FOUND = "404.html";
+        static final String METHOD_NOT_SUPPORTED = "not_supported.html";
+        // port to listen connection
+        static final int PORT = 8080;
 
-    // verbose mode
-    static final boolean verbose = true;
+        // verbose mode
+        static final boolean verbose = true;
 
     // Client Connection via Socket Class
     private Socket connect;
@@ -68,26 +67,10 @@ public class Server implements Runnable{
 
             //parse the request to a javaObject
 
-            TheRequest theRequest = new TheRequest();
+            HTTPRequest theRequest = new HTTPRequest();
             ParseRequest parseRequest = new ParseRequest();
 
-            TheRequest result = parseRequest.parseRequestToJavaObject(theRequest, in);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            HTTPRequest result = parseRequest.parseRequestToJavaObject(theRequest, in);
 
 
 
