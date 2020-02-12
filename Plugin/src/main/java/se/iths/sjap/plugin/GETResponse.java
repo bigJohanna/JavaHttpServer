@@ -1,0 +1,2 @@
+public class GETResponse {
+}
