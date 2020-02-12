@@ -1,5 +1,9 @@
+package se.iths.sjap.server;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import se.iths.sjap.server.HTTPRequest;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
