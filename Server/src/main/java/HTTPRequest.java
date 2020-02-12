@@ -1,9 +1,8 @@
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
 public class HTTPRequest {
-
 
     String StartLineImplementation;
     String StartLineURL;
@@ -11,9 +10,14 @@ public class HTTPRequest {
 
     HashMap<String, String> headers = new HashMap<String, String>();
 
-    JSONObject body;
+    JsonObject jsonObject;
 
-    public void TheRequest() {
+    public JsonObject getJsonObject() {
+        return jsonObject;
+    }
+
+    public void setJsonObject(JsonObject jsonObject) {
+        this.jsonObject = jsonObject;
     }
 
     public String getStartLineStatus() {
