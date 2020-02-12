@@ -1,21 +1,26 @@
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 
+
 public class ParseRequest {
 
+    HTTPRequest requestIn;
+    BufferedReader buffReaderIn;
 
-    public HTTPRequest parseRequestToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
+    public ParseRequest(HTTPRequest requestIn, BufferedReader buffReaderIn) {
+        this.requestIn = requestIn;
+        this.buffReaderIn = buffReaderIn;
+    }
 
-        // Get starline
+    public HTTPRequest parseStartLineAndHeadToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
+
         String[] splitHead = in.readLine().split(" ");
         reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
         reqIn.setStartLineURL(splitHead[1]);
         reqIn.setStartLineStatus(splitHead[2]);
 
-        // Get headers
         String headerLine  = "test";
         while (!headerLine.isEmpty()) {
             headerLine = in.readLine();
@@ -23,22 +28,20 @@ public class ParseRequest {
             if(splitHeader.length > 1)
             reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
         }
-        // system.out headers
-        reqIn.getHeaders().entrySet().forEach(entry->{
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        });
 
+        return reqIn;
+    }
 
-        // Get json body
-        // int för att få ut contentLenght som int.
-        int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
-        int contentLenghtFromJson = 0;
+    public JsonObject parseBodyToJson(HTTPRequest requestIn, BufferedReader buffReaderIn) throws IOException {
+
+        int contentLenght = Integer.parseInt((requestIn.getHeaders().get("Content-Length")).replace(" ", ""));
 
         char[] sizeByContentLenght = new char[contentLenght];
-        in.read(sizeByContentLenght, 0 ,contentLenght);
+        buffReaderIn.read(sizeByContentLenght, 0 ,contentLenght);
         String jsonBody = new String(sizeByContentLenght);
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
 
+<<<<<<< HEAD
       //  reqIn // In med obj
 
         return  reqIn;
@@ -98,6 +101,9 @@ public class ParseRequest {
 */
 
 
+=======
+        return jsonObject;
+>>>>>>> b0cef8de5b95261eac20d2a91ad121d0af263b42
     }
 
 }
