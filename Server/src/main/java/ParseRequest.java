@@ -14,25 +14,25 @@ public class ParseRequest {
         this.buffReaderIn = buffReaderIn;
     }
 
-    public HTTPRequest parseStartLineAndHeadToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
+    public HTTPRequest parseStartLineAndHeadToJavaObject() throws IOException {
 
-        String[] splitHead = in.readLine().split(" ");
-        reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
-        reqIn.setStartLineURL(splitHead[1]);
-        reqIn.setStartLineStatus(splitHead[2]);
+        String[] splitHead = buffReaderIn.readLine().split(" ");
+        requestIn.setStartLineImplementation(splitHead[0].toUpperCase());
+        requestIn.setStartLineURL(splitHead[1]);
+        requestIn.setStartLineStatus(splitHead[2]);
 
         String headerLine  = "test";
         while (!headerLine.isEmpty()) {
-            headerLine = in.readLine();
+            headerLine = buffReaderIn.readLine();
              String[] splitHeader = headerLine.split(":", 2);
             if(splitHeader.length > 1)
-            reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
+            requestIn.getHeaders().put(splitHeader[0], splitHeader[1]);
         }
 
-        return reqIn;
+        return requestIn;
     }
 
-    public JsonObject parseBodyToJson(HTTPRequest requestIn, BufferedReader buffReaderIn) throws IOException {
+    public JsonObject parseBodyToJson() throws IOException {
 
         int contentLenght = Integer.parseInt((requestIn.getHeaders().get("Content-Length")).replace(" ", ""));
 
@@ -40,7 +40,7 @@ public class ParseRequest {
         buffReaderIn.read(sizeByContentLenght, 0 ,contentLenght);
         String jsonBody = new String(sizeByContentLenght);
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-
+        System.out.println(jsonBody);
         return jsonObject;
     }
 

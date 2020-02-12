@@ -13,15 +13,14 @@ import java.util.Date;
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
         // port to listen connection
         static final int PORT = 8080;
-
         // verbose mode
         static final boolean verbose = true;
 
-    // Client Connection via Socket Class
-    private Socket connect;
+        // Client Connection via Socket Class
+        private Socket connect;
 
-    public Server(Socket c) {
-        connect = c;
+        public Server(Socket c) {
+            connect = c;
     }
 
     public static void main(String[] args) {
@@ -65,19 +64,16 @@ import java.util.Date;
             dataOut = new BufferedOutputStream(connect.getOutputStream());
 
             //parse the request to a javaObject
-
             HTTPRequest httpRequest = new HTTPRequest();
             ParseRequest parseRequest = new ParseRequest(httpRequest, in);
-            parseRequest.parseBodyToJson(httpRequest,in);
-            HTTPRequest result = parseRequest.parseStartLineAndHeadToJavaObject(httpRequest, in);
-
-
+            httpRequest = parseRequest.parseStartLineAndHeadToJavaObject();
+            httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
 
             // we support only GET and HEAD methods, we check
-            if (result.getStartLineImplementation().equals("GET") ) {// &&  !httpRequest.getMethod().equals("HEAD")) {
+            if (httpRequest.getStartLineImplementation().equals("GET") ) {// &&  !httpRequest.getMethod().equals("HEAD")) {
                 if (verbose) {
-                    System.out.println("501 Not Implemented : " + result.getStartLineImplementation() + " method.");
+                    System.out.println("501 Not Implemented : " + httpRequest.getStartLineImplementation() + " method.");
                 }
 
                 // we return the not supported file to the client
@@ -160,8 +156,6 @@ import java.util.Date;
                 System.out.println("Connection closed.\n");
             }
         }
-
-
     }
 
     private byte[] readFileData(File file, int fileLength) throws IOException {
@@ -208,39 +202,4 @@ import java.util.Date;
             System.out.println("File " + fileRequested + " not found");
         }
     }
-/*
-    public TheRequest parseRequestToJavaObject(BufferedReader in) throws IOException {
-        //requestObject
-        TheRequest theRequest = new TheRequest();
-
-        //Line 1 of request ("GET /index.html HTTP/1.1")
-        String lineOne = in.readLine();
-
-        //set hostname and user-agent name from line 2 and 3 from request
-        theRequest.setHost(in.readLine());
-        theRequest.setUserAgent(in.readLine());
-        theRequest.setConnection(in.readLine());
-        theRequest.setAccept(in.readLine());
-
-        //  requestLineOne into method and fileRequested
-        StringTokenizer parse = new StringTokenizer(lineOne);
-        //get first word of line one of request
-        theRequest.setMethod(parse.nextToken().toUpperCase());
-        // get second part of line one of request
-        theRequest.setFile(parse.nextToken().toLowerCase());
-
-
-        //print info to console
-        System.out.println("Method of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + theRequest.getMethod());
-        System.out.println("File requested of TheRequestObject!!!!!!!!!!!!!!: " + theRequest.getFile());
-        System.out.println("Host of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + theRequest.getHost());
-        System.out.println("User-Agent of TheRequestObject!!!!!!!!!!!!!!!!!!: " + theRequest.getUserAgent());
-        System.out.println("Connection of TheRequestObject!!!!!!!!!!!!!!!!!!: " + theRequest.getConnection());
-        System.out.println("Accept of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + theRequest.getAccept());
-        //System.out.println("Body of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + );
-
-        return theRequest;
-    }
-*/
-
 }
