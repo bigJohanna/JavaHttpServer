@@ -1,45 +1,70 @@
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
-
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Date;
-import java.util.StringTokenizer;
-
-
 
 public class ParseRequest {
 
 
+    public HTTPRequest parseRequestToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
 
+        // HEJ JOHANNA
 
-    // Denna metod bör skrivas om för att parsa den nya typen av TheRequest
-
-    public TheRequest parseRequestToJavaObject(TheRequest reqIn, BufferedReader in) throws IOException {
-
-
-        //Line 1 of request ("GET /index.html HTTP/1.1")
-        // Split by space
+        // Get starline
         String[] splitHead = in.readLine().split(" ");
         reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
+        reqIn.setStartLineURL(splitHead[1]);
         reqIn.setStartLineStatus(splitHead[2]);
-        // För test
-        //System.out.println(reqIn.getStartLineImplementation());
-        //System.out.println(reqIn.getStartLineStatus());
 
-        //set hostname and user-agent name from line 2 and 3 from request
-        // reqIn.setStartLine(in.readLine());
+        // Get headers
+        String headerLine  = "test";
+        while (!headerLine.isEmpty()) {
+            headerLine = in.readLine();
+             String[] splitHeader = headerLine.split(":", 2);
+            if(splitHeader.length > 1)
+            reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
+        }
+        // system.out headers
+        reqIn.getHeaders().entrySet().forEach(entry->{
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        });
 
 
 
-        //while (in.readLine().getClass() != null) {
-            //reqIn.headers.put( hej + hej....)
-        //}
+        // Get json body
 
-        /*
+        // int för att få ut contentLenght som int.
+        int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
+        int contentLenghtFromJson = 0;
 
+        // strängar för lagring till parsning.
+        String jsonBody  = "";
+        String stop = "stop";
+
+
+        while (contentLenght != contentLenghtFromJson) {
+            stop = in.readLine();
+            jsonBody = jsonBody + stop;
+            String str = stop;
+            // Creating array of string length
+            char[] ch = new char[str.length()];
+            // Copy character by character into array
+            for (int i = 0; i < str.length(); i++) {
+                ch[i] = str.charAt(i);
+            }
+            contentLenghtFromJson = contentLenghtFromJson + (ch.length-  1);
+                System.out.println(jsonBody);
+
+        }
+        in.close();
+
+        JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
+        System.out.println("Print json file:");
+        System.out.println(jsonObject.toString());
+
+
+/*
         {
         reqIn.setUserAgent(in.readLine());
         reqIn.setConnection(in.readLine());
@@ -62,7 +87,7 @@ public class ParseRequest {
         System.out.println("Accept of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + reqIn.getAccept());
         //System.out.println("Body of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + );
 
-            */
+*/
 
         return  reqIn;
     }
