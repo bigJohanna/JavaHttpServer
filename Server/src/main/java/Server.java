@@ -70,19 +70,18 @@ import java.util.Date;
             httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
 
+            fileRequested = httpRequest.StartLineURL;
             // we support only GET and HEAD methods, we check
-            if (httpRequest.getStartLineImplementation().equals("GET") ) {// &&  !httpRequest.getMethod().equals("HEAD")) {
+            if (!httpRequest.getStartLineImplementation().equals("GET") &&  !httpRequest.getStartLineImplementation().equals("HEAD")) {
                 if (verbose) {
                     System.out.println("501 Not Implemented : " + httpRequest.getStartLineImplementation() + " method.");
                 }
-
                 // we return the not supported file to the client
                 File file = new File(WEB_ROOT, METHOD_NOT_SUPPORTED);
                 int fileLength = (int) file.length();
                 String contentMimeType = "text/html";
                 //read content to return to client
                 byte[] fileData = readFileData(file, fileLength);
-
                 // we send HTTP Headers with data to client
                 out.print("HTTP/1.1 501 Not Implemented\r\n");
                 out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
@@ -94,22 +93,17 @@ import java.util.Date;
                 // file
                 dataOut.write(fileData, 0, fileLength);
                 dataOut.flush();
-
+                return;
             } else {
-
-                System.out.println(" finish ");
-
-                /*
                 // GET or HEAD method
-                if (httpRequest.getFile().endsWith("/")) {
+                if (httpRequest.getStartLineURL().endsWith("/")) {
                     fileRequested += DEFAULT_FILE;
                 }
-
-                File file = new File(WEB_ROOT, httpRequest.getFile());
+                File file = new File(WEB_ROOT, fileRequested);
                 int fileLength = (int) file.length();
-                String content = getContentType(httpRequest.getFile());
+                String content = getContentType(fileRequested);
 
-                if (httpRequest.getMethod().equals("GET")) { // GET method so we return content
+                if (httpRequest.getStartLineImplementation().equals("GET")) { // GET method so we return content
                     byte[] fileData = readFileData(file, fileLength);
 
                     // send HTTP Headers
@@ -128,9 +122,6 @@ import java.util.Date;
                 if (verbose) {
                     System.out.println("File " + fileRequested + " of type " + content + " returned");
                 }
-
-                 */
-
             }
 
         } catch (FileNotFoundException fnfe) {
