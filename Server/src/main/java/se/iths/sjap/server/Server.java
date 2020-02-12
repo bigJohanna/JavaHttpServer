@@ -1,3 +1,5 @@
+package se.iths.sjap.server;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;

@@ -1,3 +1,4 @@
+package se.iths.sjap.server;
 
 /*
 public class RequestSwitch {

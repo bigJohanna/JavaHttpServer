@@ -1,3 +1,5 @@
+package se.iths.sjap.server;
+
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
