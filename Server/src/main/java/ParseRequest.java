@@ -30,12 +30,32 @@ public class ParseRequest {
         });
 
 
+
+
+
+        // int för att få ut contentLenght som int.
+        int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
+        int contentLenghtFromJson = 0;
+
+        // strängar för lagring till parsning.
         String jsonBody  = "";
         String stop = "stop";
-        while ((stop = in.readLine()) != null) {
+
+
+        while (contentLenght != contentLenghtFromJson) {
+            stop = in.readLine();
             jsonBody = jsonBody + stop;
-            System.out.println(jsonBody);
+            String str = stop;
+            // Creating array of string length
+            char[] ch = new char[str.length()];
+            // Copy character by character into array
+            for (int i = 0; i < str.length(); i++) {
+                ch[i] = str.charAt(i);
+            }
+            contentLenghtFromJson = contentLenghtFromJson + (ch.length-  1);
+                System.out.println(jsonBody);
         }
+
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
         System.out.println("Print json file:");
         System.out.println(jsonObject.toString());
