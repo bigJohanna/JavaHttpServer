@@ -34,24 +34,35 @@ public class ParseRequest {
         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
         int contentLenghtFromJson = 0;
 
-        // strängar för lagring till parsning.
-        String jsonBody  = "";
-        String stop = "stop";
+        char[] sizeByContentLenght = new char[contentLenght];
+        in.read(sizeByContentLenght, 0 ,contentLenght);
+        String jsonBody = new String(sizeByContentLenght);
+        JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
+
+        reqIn // In med obj
+
+        return  reqIn;
+
+        /*
+        System.out.println(test);
+
 
 
         while (contentLenght != contentLenghtFromJson) {
-            stop = in.readLine();
-            jsonBody += stop;
+                stop = in.readLine();
+                jsonBody += stop;
 
-            // Count chars for contentLenghtFromJason
-            String str = stop;
-            char[] ch = new char[str.length()];
-            for (int i = 0; i < str.length(); i++) {
-                ch[i] = str.charAt(i);
-            }
-            contentLenghtFromJson += (ch.length-  1);
+                // Count chars for contentLenghtFromJason
+                String str = stop;
+                in.read
 
-            System.out.println(jsonBody);
+                char[] ch = new char[str.length()];
+                for (int i = 0; i < str.length(); i++) {
+                    ch[i] = str.charAt(i);
+                }
+                contentLenghtFromJson += (ch.length-  1);
+
+                System.out.println(jsonBody);
 
         }
 
@@ -86,7 +97,7 @@ public class ParseRequest {
 
 */
 
-        return  reqIn;
+
     }
 
 }
