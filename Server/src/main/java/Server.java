@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -67,16 +66,16 @@ import java.util.Date;
 
             //parse the request to a javaObject
 
-            HTTPRequest theRequest = new HTTPRequest();
-            ParseRequest parseRequest = new ParseRequest();
-
-            HTTPRequest result = parseRequest.parseRequestToJavaObject(theRequest, in);
+            HTTPRequest httpRequest = new HTTPRequest();
+            ParseRequest parseRequest = new ParseRequest(httpRequest, in);
+            parseRequest.parseBodyToJson(httpRequest,in);
+            HTTPRequest result = parseRequest.parseStartLineAndHeadToJavaObject(httpRequest, in);
 
 
 
 
             // we support only GET and HEAD methods, we check
-            if (result.getStartLineImplementation().equals("GET") ) {// &&  !theRequest.getMethod().equals("HEAD")) {
+            if (result.getStartLineImplementation().equals("GET") ) {// &&  !httpRequest.getMethod().equals("HEAD")) {
                 if (verbose) {
                     System.out.println("501 Not Implemented : " + result.getStartLineImplementation() + " method.");
                 }
@@ -106,15 +105,15 @@ import java.util.Date;
 
                 /*
                 // GET or HEAD method
-                if (theRequest.getFile().endsWith("/")) {
+                if (httpRequest.getFile().endsWith("/")) {
                     fileRequested += DEFAULT_FILE;
                 }
 
-                File file = new File(WEB_ROOT, theRequest.getFile());
+                File file = new File(WEB_ROOT, httpRequest.getFile());
                 int fileLength = (int) file.length();
-                String content = getContentType(theRequest.getFile());
+                String content = getContentType(httpRequest.getFile());
 
-                if (theRequest.getMethod().equals("GET")) { // GET method so we return content
+                if (httpRequest.getMethod().equals("GET")) { // GET method so we return content
                     byte[] fileData = readFileData(file, fileLength);
 
                     // send HTTP Headers
