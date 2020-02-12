@@ -40,8 +40,9 @@ public class ParseRequest {
         buffReaderIn.read(sizeByContentLenght, 0 ,contentLenght);
         String jsonBody = new String(sizeByContentLenght);
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-        System.out.println(jsonBody);
+
         return jsonObject;
+
     }
 
 }

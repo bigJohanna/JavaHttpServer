@@ -79,21 +79,11 @@ import java.util.Date;
                 // we return the not supported file to the client
                 File file = new File(WEB_ROOT, METHOD_NOT_SUPPORTED);
                 int fileLength = (int) file.length();
-                String contentMimeType = "text/html";
+                String content = "text/html";
                 //read content to return to client
-                byte[] fileData = readFileData(file, fileLength);
 
-                // we send HTTP Headers with data to client
-                out.print("HTTP/1.1 501 Not Implemented\r\n");
-                out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
-                out.print("Date: " + new Date() + "\r\n");
-                out.print("Content-type: " + contentMimeType + "\r\n");
-                out.print("Content-length: " + fileLength + "\r\n");
-                out.print("\r\n"); // blank line between headers and content, very important !
-                out.flush(); // flush character output stream buffer
-                // file
-                dataOut.write(fileData, 0, fileLength);
-                dataOut.flush();
+                byte[] fileData = readFileData(file, fileLength);
+                HttpHeadersDataToClient(out, dataOut, fileLength, content, fileData);
 
             } else {
 
@@ -158,6 +148,20 @@ import java.util.Date;
         }
     }
 
+    private void HttpHeadersDataToClient(PrintWriter out, BufferedOutputStream dataOut, int fileLength, String content, byte[] fileData) throws IOException {
+        // we send HTTP Headers with data to client
+        out.print("HTTP/1.1 501 Not Implemented\r\n");
+        out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
+        out.print("Date: " + new Date() + "\r\n");
+        out.print("Content-type: " + content + "\r\n");
+        out.print("Content-length: " + fileLength + "\r\n");
+        out.print("\r\n"); // blank line between headers and content, very important !
+        out.flush(); // flush character output stream buffer
+        // file
+        dataOut.write(fileData, 0, fileLength);
+        dataOut.flush();
+    }
+
     private byte[] readFileData(File file, int fileLength) throws IOException {
         FileInputStream fileIn = null;
         byte[] fileData = new byte[fileLength];
@@ -181,22 +185,13 @@ import java.util.Date;
             return "text/plain";
     }
 
-    private void fileNotFound(PrintWriter out, OutputStream dataOut, String fileRequested) throws IOException {
+    private void fileNotFound(PrintWriter out, BufferedOutputStream dataOut, String fileRequested) throws IOException {
         File file = new File(WEB_ROOT, FILE_NOT_FOUND);
         int fileLength = (int) file.length();
         String content = "text/html";
         byte[] fileData = readFileData(file, fileLength);
 
-        out.print("HTTP/1.1 404 File Not Found\r\n");
-        out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
-        out.print("Date: " + new Date() + "\r\n");
-        out.print("Content-type: " + content + "\r\n");
-        out.print("Content-length: " + fileLength + "\r\n");
-        out.print("\r\n"); // blank line between headers and content, very important !
-        out.flush(); // flush character output stream buffer
-
-        dataOut.write(fileData, 0, fileLength);
-        dataOut.flush();
+        HttpHeadersDataToClient(out, dataOut, fileLength, content, fileData);
 
         if (verbose) {
             System.out.println("File " + fileRequested + " not found");
