@@ -9,8 +9,6 @@ public class ParseRequest {
 
     public HTTPRequest parseRequestToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
 
-        // HEJ JOHANNA
-
         // Get starline
         String[] splitHead = in.readLine().split(" ");
         reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
@@ -31,9 +29,7 @@ public class ParseRequest {
         });
 
 
-
         // Get json body
-
         // int för att få ut contentLenght som int.
         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
         int contentLenghtFromJson = 0;
@@ -45,25 +41,26 @@ public class ParseRequest {
 
         while (contentLenght != contentLenghtFromJson) {
             stop = in.readLine();
-            jsonBody = jsonBody + stop;
+            jsonBody += stop;
+
+            // Count chars for contentLenghtFromJason
             String str = stop;
-            // Creating array of string length
             char[] ch = new char[str.length()];
-            // Copy character by character into array
             for (int i = 0; i < str.length(); i++) {
                 ch[i] = str.charAt(i);
             }
-            contentLenghtFromJson = contentLenghtFromJson + (ch.length-  1);
-                System.out.println(jsonBody);
+            contentLenghtFromJson += (ch.length-  1);
+
+            System.out.println(jsonBody);
 
         }
-        in.close();
+
 
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
         System.out.println("Print json file:");
         System.out.println(jsonObject.toString());
 
-
+        in.close();
 /*
         {
         reqIn.setUserAgent(in.readLine());
