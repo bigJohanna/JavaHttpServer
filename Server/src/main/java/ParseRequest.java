@@ -14,25 +14,25 @@ public class ParseRequest {
         this.buffReaderIn = buffReaderIn;
     }
 
-    public HTTPRequest parseStartLineAndHeadToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
+    public HTTPRequest parseStartLineAndHeadToJavaObject() throws IOException {
 
-        String[] splitHead = in.readLine().split(" ");
-        reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
-        reqIn.setStartLineURL(splitHead[1]);
-        reqIn.setStartLineStatus(splitHead[2]);
+        String[] splitHead = buffReaderIn.readLine().split(" ");
+        requestIn.setStartLineImplementation(splitHead[0].toUpperCase());
+        requestIn.setStartLineURL(splitHead[1]);
+        requestIn.setStartLineStatus(splitHead[2]);
 
         String headerLine  = "test";
         while (!headerLine.isEmpty()) {
-            headerLine = in.readLine();
+            headerLine = buffReaderIn.readLine();
              String[] splitHeader = headerLine.split(":", 2);
             if(splitHeader.length > 1)
-            reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
+            requestIn.getHeaders().put(splitHeader[0], splitHeader[1]);
         }
 
-        return reqIn;
+        return requestIn;
     }
 
-    public JsonObject parseBodyToJson(HTTPRequest requestIn, BufferedReader buffReaderIn) throws IOException {
+    public JsonObject parseBodyToJson() throws IOException {
 
         int contentLenght = Integer.parseInt((requestIn.getHeaders().get("Content-Length")).replace(" ", ""));
 
@@ -40,66 +40,6 @@ public class ParseRequest {
         buffReaderIn.read(sizeByContentLenght, 0 ,contentLenght);
         String jsonBody = new String(sizeByContentLenght);
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-
-
-      //  reqIn // In med obj
-
-
-        /*
-        System.out.println(test);
-
-
-
-        while (contentLenght != contentLenghtFromJson) {
-                stop = in.readLine();
-                jsonBody += stop;
-
-                // Count chars for contentLenghtFromJason
-                String str = stop;
-                in.read
-
-                char[] ch = new char[str.length()];
-                for (int i = 0; i < str.length(); i++) {
-                    ch[i] = str.charAt(i);
-                }
-                contentLenghtFromJson += (ch.length-  1);
-
-                System.out.println(jsonBody);
-
-        }
-
-
-        JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-        System.out.println("Print json file:");
-        System.out.println(jsonObject.toString());
-
-        in.close();
-/*
-        {
-        reqIn.setUserAgent(in.readLine());
-        reqIn.setConnection(in.readLine());
-        reqIn.setAccept(in.readLine());
-
-        //  requestLineOne into method and fileRequested
-        StringTokenizer parse = new StringTokenizer(lineOne);
-        //get first word of line one of request
-        reqIn.setMethod(parse.nextToken().toUpperCase());
-        // get second part of line one of request
-        reqIn.setFile(parse.nextToken().toLowerCase());
-
-
-        //print info to console
-        System.out.println("Method of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + reqIn.getMethod());
-        System.out.println("File requested of TheRequestObject!!!!!!!!!!!!!!: " + reqIn.getFile());
-        System.out.println("Host of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + reqIn.getHost());
-        System.out.println("User-Agent of TheRequestObject!!!!!!!!!!!!!!!!!!: " + reqIn.getUserAgent());
-        System.out.println("Connection of TheRequestObject!!!!!!!!!!!!!!!!!!: " + reqIn.getConnection());
-        System.out.println("Accept of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!: " + reqIn.getAccept());
-        //System.out.println("Body of TheRequestObject!!!!!!!!!!!!!!!!!!!!!!!!: " + );
-
-*/
-
-
 
         return jsonObject;
 
