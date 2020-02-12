@@ -9,6 +9,8 @@ public class ParseRequest {
 
     public HTTPRequest parseRequestToJavaObject(HTTPRequest reqIn, BufferedReader in) throws IOException {
 
+        // HEJ JOHANNA
+
         // Get starline
         String[] splitHead = in.readLine().split(" ");
         reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
@@ -17,21 +19,20 @@ public class ParseRequest {
 
         // Get headers
         String headerLine  = "test";
-
         while (!headerLine.isEmpty()) {
             headerLine = in.readLine();
              String[] splitHeader = headerLine.split(":", 2);
             if(splitHeader.length > 1)
             reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
         }
-        // See headers, sys out..
+        // system.out headers
         reqIn.getHeaders().entrySet().forEach(entry->{
             System.out.println(entry.getKey() + " " + entry.getValue());
         });
 
 
 
-
+        // Get json body
 
         // int för att få ut contentLenght som int.
         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
