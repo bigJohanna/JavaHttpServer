@@ -54,7 +54,9 @@ public class ParseRequest {
             }
             contentLenghtFromJson = contentLenghtFromJson + (ch.length-  1);
                 System.out.println(jsonBody);
+
         }
+        in.close();
 
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
         System.out.println("Print json file:");
