@@ -39,7 +39,7 @@ public class ParseRequest {
         String jsonBody = new String(sizeByContentLenght);
         JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
 
-        reqIn // In med obj
+      //  reqIn // In med obj
 
         return  reqIn;
 
