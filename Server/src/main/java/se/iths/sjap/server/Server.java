@@ -71,6 +71,8 @@ import java.util.Date;
             httpRequest = parseRequest.parseStartLineAndHeadToJavaObject();
             httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
+           RequestSwitch requestSwitch = new RequestSwitch();
+           requestSwitch.Request(httpRequest);
 
             fileRequested = httpRequest.StartLineURL;
             // we support only GET and HEAD methods, we check

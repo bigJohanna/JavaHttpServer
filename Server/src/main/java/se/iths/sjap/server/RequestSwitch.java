@@ -1,9 +1,9 @@
 package se.iths.sjap.server;
 
-/*
+
 public class RequestSwitch {
 
-    private static void Request() {
+    public void Request(HTTPRequest httpRequest) {
 
         switch (httpRequest.getStartLineImplementation()) {
             case "GET":
@@ -20,4 +20,3 @@ public class RequestSwitch {
         }
     }
 }
-*/
