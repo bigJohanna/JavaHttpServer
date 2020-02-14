@@ -38,6 +38,12 @@ public class ParseRequest {
                  JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
            }
 
+         String File =        reqIn.StartLineImplementation + ".html";
+         if (httpRequest.getStartLineURL().endsWith("/")) {
+             fileRequested = File;
+         }
+
+
             return  reqIn;
     }
 }
