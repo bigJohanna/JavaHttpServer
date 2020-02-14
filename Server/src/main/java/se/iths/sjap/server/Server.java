@@ -69,7 +69,8 @@ import java.util.Date;
             HTTPRequest httpRequest = new HTTPRequest();
             ParseRequest parseRequest = new ParseRequest(httpRequest, in);
             httpRequest = parseRequest.parseStartLineAndHeadToJavaObject();
-            httpRequest.setJsonObject(parseRequest.parseBodyToJson());
+            // raden under måste ändras, metoden krashar om det inte kommer en body.
+            // httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
            RequestSwitch requestSwitch = new RequestSwitch();
            requestSwitch.Request(httpRequest);
