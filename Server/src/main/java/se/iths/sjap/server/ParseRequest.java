@@ -8,20 +8,20 @@ public class ParseRequest {
 
      public HTTPRequest parse(HTTPRequest reqIn, BufferedReader in) throws IOException {
 
-            // Get starline
-            String[] splitHead = in.readLine().split(" ");
-            reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
-            reqIn.setStartLineURL(splitHead[1]);
-            reqIn.setStartLineStatus(splitHead[2]);
+        // Get starline
+        String[] splitHead = in.readLine().split(" ");
+        reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
+        reqIn.setStartLineURL(splitHead[1]);
+        reqIn.setStartLineStatus(splitHead[2]);
 
-            // Get headers
-            String headerLine  = "avoid null";
-            while (!headerLine.isEmpty()) {
-                headerLine = in.readLine();
-                String[] splitHeader = headerLine.split(":", 2);
-                if(splitHeader.length > 1)
-                    reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
-            }
+        // Get headers
+        String headerLine  = "avoid null";
+        while (!headerLine.isEmpty()) {
+            headerLine = in.readLine();
+            String[] splitHeader = headerLine.split(":", 2);
+            if(splitHeader.length > 1)
+                reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
+        }
 
 
 
@@ -36,14 +36,9 @@ public class ParseRequest {
 
                  String jsonBody = new String(sizeByContentLenght);
                  JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-           }
-
-         String File =        reqIn.StartLineImplementation + ".html";
-         if (httpRequest.getStartLineURL().endsWith("/")) {
-             fileRequested = File;
-         }
+            }
 
 
-            return  reqIn;
+         return  reqIn;
     }
 }
