@@ -3,6 +3,7 @@ package se.iths.sjap.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.http.HttpRequest;
 import java.util.Date;
 
 
@@ -71,11 +72,9 @@ import java.util.Date;
 
             //parse the request to a javaObject
             HTTPRequest httpRequest = new HTTPRequest();
-            ParseRequest parseRequest = new ParseRequest(httpRequest, in);
-            httpRequest = parseRequest.parseStartLineAndHeadToJavaObject();
+            httpRequest = new ParseRequest().parse(httpRequest, in);
 
-            // raden under måste ändras, metoden krashar om det inte kommer en body.
-            // httpRequest.setJsonObject(parseRequest.parseBodyToJson());
+
 
            RequestSwitch requestSwitch = new RequestSwitch();
            requestSwitch.Request(httpRequest, out, dataOut);

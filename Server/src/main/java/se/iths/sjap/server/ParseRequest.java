@@ -1,52 +1,40 @@
 package se.iths.sjap.server;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import se.iths.sjap.server.HTTPRequest;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 
-
 public class ParseRequest {
 
-    HTTPRequest requestIn;
-    BufferedReader buffReaderIn;
+     public HTTPRequest parse(HTTPRequest reqIn, BufferedReader in) throws IOException {
 
-    public ParseRequest(HTTPRequest requestIn, BufferedReader buffReaderIn) {
-        this.requestIn = requestIn;
-        this.buffReaderIn = buffReaderIn;
+            // Get starline
+            String[] splitHead = in.readLine().split(" ");
+            reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
+            reqIn.setStartLineURL(splitHead[1]);
+            reqIn.setStartLineStatus(splitHead[2]);
+
+            // Get headers
+            String headerLine  = "avoid null";
+            while (!headerLine.isEmpty()) {
+                headerLine = in.readLine();
+                String[] splitHeader = headerLine.split(":", 2);
+                if(splitHeader.length > 1)
+                    reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
+            }
+         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
+         int contentLenghtFromJson = 0;
+            // Get json body, if a json file is send from client
+           if (contentLenght != contentLenghtFromJson){
+
+                 char[] sizeByContentLenght = new char[contentLenght];
+                 in.read(sizeByContentLenght, 0 ,contentLenght);
+
+                 String jsonBody = new String(sizeByContentLenght);
+                 JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
+               System.out.println("nu parsas json");
+           }
+
+            return  reqIn;
     }
-
-    public HTTPRequest parseStartLineAndHeadToJavaObject() throws IOException {
-
-        String[] splitHead = buffReaderIn.readLine().split(" ");
-        requestIn.setStartLineImplementation(splitHead[0].toUpperCase());
-        requestIn.setStartLineURL(splitHead[1]);
-        requestIn.setStartLineStatus(splitHead[2]);
-
-        String headerLine  = "test";
-        while (!headerLine.isEmpty()) {
-            headerLine = buffReaderIn.readLine();
-             String[] splitHeader = headerLine.split(":", 2);
-            if(splitHeader.length > 1)
-            requestIn.getHeaders().put(splitHeader[0], splitHeader[1]);
-        }
-
-        return requestIn;
-    }
-
-    public JsonObject parseBodyToJson() throws IOException {
-
-        int contentLenght = Integer.parseInt((requestIn.getHeaders().get("Content-Length")).replace(" ", ""));
-
-        char[] sizeByContentLenght = new char[contentLenght];
-        buffReaderIn.read(sizeByContentLenght, 0 ,contentLenght);
-        String jsonBody = new String(sizeByContentLenght);
-        JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
-
-        return jsonObject;
-
-    }
-
 }
