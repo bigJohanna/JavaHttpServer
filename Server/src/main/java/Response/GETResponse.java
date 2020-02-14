@@ -7,12 +7,12 @@ import java.util.Date;
 
 public class GETResponse {
 
-    private String fileRequested = "";
+    private String fileRequested = "index.html";
 
     public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
      String file = httpRequest.getStartLineURL() + ".html";
-        if (httpRequest.getStartLineURL().startsWith("/")) {
+        if (httpRequest.getStartLineURL().length() > 1 ) {
             fileRequested = file;
             fileRequested.substring(1);
         }
