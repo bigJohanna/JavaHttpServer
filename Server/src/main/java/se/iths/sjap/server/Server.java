@@ -10,9 +10,15 @@ import java.util.Date;
     public class Server implements Runnable{
 
         static final File WEB_ROOT = new File("Server/src/main/resources");
+
+        // Kopia av dessa finns i requestSwitch, tanken är att ta bort dessa 3 när den är ok.
         static final String DEFAULT_FILE = "index.html";
         static final String FILE_NOT_FOUND = "404.html";
         static final String METHOD_NOT_SUPPORTED = "not_supported.html";
+
+
+
+
         // port to listen connection
         static final int PORT = 8080;
         // verbose mode
@@ -69,11 +75,17 @@ import java.util.Date;
             HTTPRequest httpRequest = new HTTPRequest();
             ParseRequest parseRequest = new ParseRequest(httpRequest, in);
             httpRequest = parseRequest.parseStartLineAndHeadToJavaObject();
+
             // raden under måste ändras, metoden krashar om det inte kommer en body.
             // httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
            RequestSwitch requestSwitch = new RequestSwitch();
            requestSwitch.Request(httpRequest);
+
+
+
+
+
 
             fileRequested = httpRequest.StartLineURL;
             // we support only GET and HEAD methods, we check
@@ -187,6 +199,10 @@ import java.util.Date;
 
         return fileData;
     }
+
+
+
+
     // return supported MIME Types
     private String getContentType(String fileRequested) {
         if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
