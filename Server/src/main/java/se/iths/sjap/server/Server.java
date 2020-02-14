@@ -10,13 +10,6 @@ import java.util.Date;
 // Each Client Connection will be managed in a dedicated Thread
     public class Server implements Runnable{
 
-        static final File WEB_ROOT = new File("Server/src/main/resources");
-        static final String DEFAULT_FILE = "index.html";
-        static final String FILE_NOT_FOUND = "404.html";
-        static final String METHOD_NOT_SUPPORTED = "not_supported.html";
-
-
-
         // port to listen connection
         static final int PORT = 8080;
         // verbose mode
@@ -86,9 +79,9 @@ import java.util.Date;
             fileRequested = httpRequest.StartLineURL;
             // we support only GET and HEAD methods, we check
             if (!httpRequest.getStartLineImplementation().equals("GET") &&  !httpRequest.getStartLineImplementation().equals("HEAD")) {
-                if (verbose) {
-                    System.out.println("501 Not Implemented : " + httpRequest.getStartLineImplementation() + " method.");
-                }
+//                if (verbose) {
+//                    System.out.println("501 Not Implemented : " + httpRequest.getStartLineImplementation() + " method.");
+//                }
                 // we return the not supported file to the client
                 File file = new File(WEB_ROOT, METHOD_NOT_SUPPORTED);
                 int fileLength = (int) file.length();
@@ -181,20 +174,7 @@ import java.util.Date;
         dataOut.flush();
     }
 
-    private byte[] readFileData(File file, int fileLength) throws IOException {
-        FileInputStream fileIn = null;
-        byte[] fileData = new byte[fileLength];
 
-        try {
-            fileIn = new FileInputStream(file);
-            fileIn.read(fileData);
-        } finally {
-            if (fileIn != null)
-                fileIn.close();
-        }
-
-        return fileData;
-    }
 
 
 

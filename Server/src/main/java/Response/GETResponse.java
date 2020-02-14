@@ -10,15 +10,20 @@ import java.util.Date;
 
 public class GETResponse {
 
-    public void method((HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
+//    private String fileRequested;
 
-    // GET
-    if (httpRequest.getStartLineURL().endsWith("/")) {
-    fileRequested += DEFAULT_FILE;
-    }
+    public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut, String fileRequested) throws IOException {
+
+     String file = httpRequest.getStartLineImplementation() + ".html";
+        if (httpRequest.getStartLineURL().endsWith("/")) {
+            fileRequested = file;
+        }
+        if (httpRequest.getStartLineURL().endsWith("/")) {
+        fileRequested += FileHandler.DEFAULT_FILE;
+        }
 
 
-    File file = new File(WEB_ROOT, fileRequested);
+    File file = new File(FileHandler.WEB_ROOT, fileRequested);
     int fileLength = (int) file.length();
     String content = getContentType(fileRequested);
 
