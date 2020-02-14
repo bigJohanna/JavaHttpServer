@@ -8,18 +8,16 @@ import java.util.Date;
 import static Response.FileHandler.*;
 
 // Each Client Connection will be managed in a dedicated Thread
-    public class Server implements Runnable{
+public class Server implements Runnable {
 
-        // port to listen connection
-        static final int PORT = 8080;
-        // verbose mode
-        static final boolean verbose = true;
-
-        // Client Connection via Socket Class
-        private Socket connect;
-
-        public Server(Socket c) {
-            connect = c;
+    // port to listen connection
+    static final int PORT = 8080;
+    // verbose mode
+    static final boolean verbose = true;
+    // Client Connection via Socket Class
+    private Socket connect;
+    public Server(Socket c) {
+        connect = c;
     }
 
     public static void main(String[] args) {
@@ -27,15 +25,12 @@ import static Response.FileHandler.*;
             ServerSocket serverConnect = new ServerSocket(PORT);
             System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
 
-            // we listen until user halts server execution
             while (true) {
                 Server myServer = new Server(serverConnect.accept());
 
                 if (verbose) {
-                    System.out.println("Connecton opened. (" + new Date() + ")");
+                    System.out.println("Connection opened. (" + new Date() + ")");
                 }
-
-                // create dedicated thread to manage the client connection
                 Thread thread = new Thread(myServer);
                 thread.start();
             }
@@ -69,12 +64,10 @@ import static Response.FileHandler.*;
             new RequestSwitch().Request(httpRequest, out, dataOut);
 
             try {
-
                 fileNotFound(out, dataOut, fileRequested);
             } catch (IOException ioe) {
                 System.err.println("Error with file not found exception : " + ioe.getMessage());
             }
-
         } catch (IOException ioe) {
             System.err.println("Server error : " + ioe);
         } finally {
@@ -90,22 +83,21 @@ import static Response.FileHandler.*;
     }
 
     private void HttpHeadersDataToClient(PrintWriter out, BufferedOutputStream dataOut, int fileLength, String content, byte[] fileData) throws IOException {
-        // we send HTTP Headers with data to client
         out.print("HTTP/1.1 501 Not Implemented\r\n");
         out.print("Server: Java HTTP Server from SSaurel : 1.0\r\n");
         out.print("Date: " + new Date() + "\r\n");
         out.print("Content-type: " + content + "\r\n");
         out.print("Content-length: " + fileLength + "\r\n");
-        out.print("\r\n"); // blank line between headers and content, very important !
-        out.flush(); // flush character output stream buffer
-        // file
+        out.print("\r\n");
+        out.flush();
+
         dataOut.write(fileData, 0, fileLength);
         dataOut.flush();
     }
 
     // return supported MIME Types
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+        if (fileRequested.endsWith(".htm") || fileRequested.endsWith(".html"))
             return "text/html";
         else
             return "text/plain";
@@ -119,8 +111,7 @@ import static Response.FileHandler.*;
 
         HttpHeadersDataToClient(out, dataOut, fileLength, content, fileData);
 
-
-            System.out.println("File " + fileRequested + " not found");
+        System.out.println("File " + fileRequested + " not found");
 
     }
 
@@ -135,7 +126,6 @@ import static Response.FileHandler.*;
             if (fileIn != null)
                 fileIn.close();
         }
-
         return fileData;
     }
 
