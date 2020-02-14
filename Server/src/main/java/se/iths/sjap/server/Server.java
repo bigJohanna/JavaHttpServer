@@ -3,9 +3,9 @@ package se.iths.sjap.server;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.http.HttpRequest;
 import java.util.Date;
 
+import static Response.FileHandler.*;
 
 // Each Client Connection will be managed in a dedicated Thread
     public class Server implements Runnable{
@@ -68,8 +68,8 @@ import java.util.Date;
 
 
 
-           RequestSwitch requestSwitch = new RequestSwitch();
-           requestSwitch.Request(httpRequest, out, dataOut);
+
+           new RequestSwitch().Request(httpRequest, out, dataOut);
 
 
 
@@ -199,4 +199,20 @@ import java.util.Date;
             System.out.println("File " + fileRequested + " not found");
         }
     }
+
+    private byte[] readFileData(File file, int fileLength) throws IOException {
+        FileInputStream fileIn = null;
+        byte[] fileData = new byte[fileLength];
+
+        try {
+            fileIn = new FileInputStream(file);
+            fileIn.read(fileData);
+        } finally {
+            if (fileIn != null)
+                fileIn.close();
+        }
+
+        return fileData;
+    }
+
 }
