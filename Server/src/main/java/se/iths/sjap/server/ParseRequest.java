@@ -23,11 +23,13 @@ public class ParseRequest {
                     reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
             }
 
-            int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
 
-            int contentLenghtFromJson = 0;
+
+         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
+         int contentLenghtFromJson = 0;
+
             // Get json body, if a json file is send from client
-            if (contentLenght != contentLenghtFromJson){
+            if (contentLenght > 0 ){
 
                  char[] sizeByContentLenght = new char[contentLenght];
                  in.read(sizeByContentLenght, 0 ,contentLenght);
