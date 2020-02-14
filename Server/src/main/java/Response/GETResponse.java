@@ -2,10 +2,7 @@ package Response;
 
 import se.iths.sjap.server.HTTPRequest;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Date;
 
 public class GETResponse {
@@ -23,12 +20,12 @@ public class GETResponse {
         }
 
 
-    File file = new File(FileHandler.WEB_ROOT, fileRequested);
+    File file2 = new File(FileHandler.WEB_ROOT, fileRequested);
     int fileLength = (int) file.length();
     String content = getContentType(fileRequested);
 
         if (httpRequest.getStartLineImplementation().equals("GET")) { // GET method so we return content
-        byte[] fileData = readFileData(file, fileLength);
+        byte[] fileData = readFileData(file2, fileLength);
 
         // send HTTP Headers
         out.print("HTTP/1.1 200 OK \r\n");
@@ -45,5 +42,28 @@ public class GETResponse {
 
 
 }
- */
+
+    private String getContentType(String fileRequested) {
+        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
+            return "text/html";
+        else
+            return "text/plain";
+    }
+
+    private byte[] readFileData(File file, int fileLength) throws IOException {
+        FileInputStream fileIn = null;
+        byte[] fileData = new byte[fileLength];
+
+        try {
+            fileIn = new FileInputStream(file);
+            fileIn.read(fileData);
+        } finally {
+            if (fileIn != null)
+                fileIn.close();
+        }
+
+        return fileData;
+    }
+
+
 }
