@@ -1,6 +1,10 @@
 package se.iths.sjap.server;
 
 
+import java.io.BufferedOutputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+
 public class RequestSwitch {
 
 
@@ -9,7 +13,9 @@ public class RequestSwitch {
     static final String METHOD_NOT_SUPPORTED = "not_supported.html";
 
 
-    public void Request(HTTPRequest httpRequest) {
+
+
+    public void Request(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) {
 
         switch (httpRequest.getStartLineImplementation()) {
             case "GET":
