@@ -1,4 +1,4 @@
-package se.iths.sjap.plugin;
+package Response;
 
 public class FirstPluginClass {
 }
