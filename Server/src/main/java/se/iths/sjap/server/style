@@ -1,0 +1,20 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body
+{
+    background: #ffffff;
+    font-family: Helvetica;
+}
+
+
+.infoClass
+{
+    width: 100%;
+    margin: auto;
+    float: center;
+
+}
