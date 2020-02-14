@@ -78,7 +78,7 @@ import java.util.Date;
             // httpRequest.setJsonObject(parseRequest.parseBodyToJson());
 
            RequestSwitch requestSwitch = new RequestSwitch();
-           requestSwitch.Request(httpRequest);
+           requestSwitch.Request(httpRequest, out, dataOut);
 
 
 

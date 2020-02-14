@@ -1,21 +1,27 @@
 package se.iths.sjap.plugin;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.PrintWriter;
+import java.net.http.HttpRequest;
 import java.util.Date;
 
 public class GETResponse {
 
 /*
+    public void method((HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut){
 
-    // GET or HEAD method
-                if (httpRequest.getStartLineURL().endsWith("/")) {
-        fileRequested += DEFAULT_FILE;
+    // GET
+    if (httpRequest.getStartLineURL().endsWith("/")) {
+    fileRequested += DEFAULT_FILE;
     }
+
+
     File file = new File(WEB_ROOT, fileRequested);
     int fileLength = (int) file.length();
     String content = getContentType(fileRequested);
 
-                if (httpRequest.getStartLineImplementation().equals("GET")) { // GET method so we return content
+        if (httpRequest.getStartLineImplementation().equals("GET")) { // GET method so we return content
         byte[] fileData = readFileData(file, fileLength);
 
         // send HTTP Headers
@@ -31,9 +37,7 @@ public class GETResponse {
         dataOut.flush();
     }
 
-                if (verbose) {
-        System.out.println("File " + fileRequested + " of type " + content + " returned");
-    }
+
 }
-    */
+ */
 }
