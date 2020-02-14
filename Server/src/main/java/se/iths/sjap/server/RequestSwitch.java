@@ -1,6 +1,7 @@
 package se.iths.sjap.server;
 
 import Response.FileHandler;
+import Response.GETResponse;
 
 import java.io.*;
 import java.util.Date;
@@ -13,7 +14,7 @@ public class RequestSwitch {
         switch (httpRequest.getStartLineImplementation()) {
             case "GET":
                 System.out.println("GET yes");
-                // GetResponse
+                new GETResponse().method(httpRequest,out,dataOut);
                 break;
             case "HEAD":
                 System.out.println("HEAD yes");
