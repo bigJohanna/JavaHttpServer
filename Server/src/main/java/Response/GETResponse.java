@@ -7,21 +7,20 @@ import java.util.Date;
 
 public class GETResponse {
 
-//    private String fileRequested;
+    private String fileRequested = "";
 
-    public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut, String fileRequested) throws IOException {
+    public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
-     String file = httpRequest.getStartLineImplementation() + ".html";
-        if (httpRequest.getStartLineURL().endsWith("/")) {
+     String file = httpRequest.getStartLineURL() + ".html";
+        if (httpRequest.getStartLineURL().startsWith("/")) {
             fileRequested = file;
+            fileRequested.substring(1);
         }
-        if (httpRequest.getStartLineURL().endsWith("/")) {
-        fileRequested += FileHandler.DEFAULT_FILE;
-        }
+
 
 
     File file2 = new File(FileHandler.WEB_ROOT, fileRequested);
-    int fileLength = (int) file.length();
+    int fileLength = (int) file2.length();
     String content = getContentType(fileRequested);
 
         if (httpRequest.getStartLineImplementation().equals("GET")) { // GET method so we return content
