@@ -8,14 +8,13 @@ import java.util.Date;
 
 public class GETResponse {
 
-/*
-    public void method((HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut){
+
+    public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut){
 
     // GET
     if (httpRequest.getStartLineURL().endsWith("/")) {
     fileRequested += DEFAULT_FILE;
     }
-
 
     File file = new File(WEB_ROOT, fileRequested);
     int fileLength = (int) file.length();

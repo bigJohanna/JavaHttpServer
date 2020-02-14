@@ -35,6 +35,12 @@ public class ParseRequest {
                System.out.println("nu parsas json");
            }
 
+         String File =        reqIn.StartLineImplementation + ".html";
+         if (httpRequest.getStartLineURL().endsWith("/")) {
+             fileRequested = File;
+         }
+
+
             return  reqIn;
     }
 }
