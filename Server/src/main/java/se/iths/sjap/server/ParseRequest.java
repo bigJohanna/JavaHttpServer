@@ -13,7 +13,7 @@ public class ParseRequest {
          reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
          reqIn.setStartLineURL(splitHead[1]);
          reqIn.setStartLineStatus(splitHead[2]);
-​
+
          // Get headers
          String headerLine  = "avoid null";
          while (!headerLine.isEmpty()) {
@@ -26,7 +26,7 @@ public class ParseRequest {
          reqIn.getHeaders().entrySet().forEach(entry->{
              System.out.println(entry.getKey() + " " + entry.getValue());
          });
-​
+
          // Get json body
       
          if (reqIn.StartLineImplementation == "POST" || reqIn.StartLineImplementation == "PUT" ) {
