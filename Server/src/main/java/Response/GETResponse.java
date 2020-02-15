@@ -1,7 +1,5 @@
 package Response;
-
 import se.iths.sjap.server.HTTPRequest;
-
 import java.io.*;
 import java.util.Date;
 
@@ -95,8 +93,6 @@ public class GETResponse {
         dataOut.write(fileData, 0, fileLength);
         dataOut.flush();
     }
-
-
 
 
 }

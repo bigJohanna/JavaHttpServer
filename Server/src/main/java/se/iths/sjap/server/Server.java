@@ -25,9 +25,8 @@ public class Server {
         ServerSocket serverSocket = null;
 
         try {
-
-                serverSocket = new ServerSocket(PORT);
-                System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
+            serverSocket = new ServerSocket(PORT);
+            System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
 
         } catch (Exception err) {
             System.err.println("Server Connection error : " + err.getMessage());

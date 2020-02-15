@@ -16,15 +16,20 @@ public class RequestSwitch {
         switch (httpRequest.getStartLineImplementation()) {
             case "GET":
                 System.out.println("GET yes -----------------------------------------------------------------------");
+
+
                 new GETResponse().method(httpRequest,out,dataOut);
                 break;
             case "HEAD":
                 System.out.println("HEAD yes -----------------------------------------------------------------------");
+
+
                 new HEADResponse().method(httpRequest,out,dataOut);
                 // HEADResponse
                 break;
             case "POST":
-                System.out.println("POST yes -----------------------------------------------------------------------");
+                System.out.println("POST yes  -----------------------------------------------------------------------");
+
                 new POSTResponse().method(httpRequest,out,dataOut);
                 break;
             default:
