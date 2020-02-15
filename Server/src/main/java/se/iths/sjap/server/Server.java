@@ -4,81 +4,41 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
+import java.util.concurrent.*;
 
 import static Response.FileHandler.*;
 
 // Each Client Connection will be managed in a dedicated Thread
-public class Server implements Runnable {
+public class Server {
 
     // port to listen connection
     static final int PORT = 8080;
     // verbose mode
     static final boolean verbose = true;
     // Client Connection via Socket Class
-    private Socket connect;
-    public Server(Socket c) {
-        connect = c;
-    }
+
 
     public static void main(String[] args) {
+
+        //create class that implements runnable
+        ExecutorService executor = Executors.newScheduledThreadPool(2);
+        ServerSocket serverSocket = null;
+
         try {
-            ServerSocket serverConnect = new ServerSocket(PORT);
-            System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
 
-            while (true) {
-                Server myServer = new Server(serverConnect.accept());
+                serverSocket = new ServerSocket(PORT);
+                System.out.println("Server started.\nListening for connections on port : " + PORT + " ...\n");
 
-                if (verbose) {
-                    System.out.println("Connection opened. (" + new Date() + ")");
-                }
-                Thread thread = new Thread(myServer);
-                thread.start();
-            }
-
-        } catch (IOException e) {
-            System.err.println("Server Connection error : " + e.getMessage());
+        } catch (Exception err) {
+            System.err.println("Server Connection error : " + err.getMessage());
         }
-    }
-
-    @Override
-    public void run() {
-        // we manage our particular client connection
-        BufferedReader in = null;
-        PrintWriter out = null;
-        BufferedOutputStream dataOut = null;
-        String fileRequested = null;
 
         try {
-            // we read characters from the client via input stream on the socket
-            in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
-            // we get character output stream to client (for headers)
-            out = new PrintWriter(connect.getOutputStream());
-            // get binary output stream to client (for requested data)
-            dataOut = new BufferedOutputStream(connect.getOutputStream());
-
-            //parse the request to a javaObject
-            HTTPRequest httpRequest = new HTTPRequest();
-            httpRequest = new ParseRequest().parse(httpRequest, in);
-            fileRequested = httpRequest.StartLineURL;
-
-            new RequestSwitch().Request(httpRequest, out, dataOut);
-
-            try {
-                fileNotFound(out, dataOut, fileRequested);
-            } catch (IOException ioe) {
-                System.err.println("Error with file not found exception : " + ioe.getMessage());
+            while(verbose) {
+                executor.submit(new ServerConnector(serverSocket.accept()));
             }
-        } catch (IOException ioe) {
-            System.err.println("Server error : " + ioe);
-        } finally {
-            try {
-                in.close();
-                out.close();
-                dataOut.close();
-                connect.close(); // we close socket connection
-            } catch (Exception e) {
-                System.err.println("Error closing stream : " + e.getMessage());
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
