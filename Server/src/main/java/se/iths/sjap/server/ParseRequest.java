@@ -29,7 +29,7 @@ public class ParseRequest {
 
          // Get json body
       
-         if (reqIn.StartLineImplementation == "POST" || reqIn.StartLineImplementation == "PUT" ) {
+         if (reqIn.StartLineImplementation.equals("POST") || reqIn.StartLineImplementation.equals("PUT") ) {
 
              int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
              int contentLenghtFromJson = 0;
