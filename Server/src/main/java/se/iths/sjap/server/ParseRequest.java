@@ -39,10 +39,16 @@ public class ParseRequest {
 
                  char[] sizeByContentLenght = new char[contentLenght];
                  in.read(sizeByContentLenght, 0, contentLenght);
+
                  jsonBody = new String(sizeByContentLenght);
+
                  JsonObject jsonObject = new JsonParser().parse(jsonBody).getAsJsonObject();
+
+                 reqIn.setJsonObject(jsonObject);
              }
          }
+         System.out.println(reqIn.getJsonObject().toString());
+
          return  reqIn;
     }
 }
