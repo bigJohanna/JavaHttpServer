@@ -3,6 +3,7 @@ package se.iths.sjap.server;
 import Response.FileHandler;
 import Response.GETResponse;
 import Response.HEADResponse;
+import Response.POSTResponse;
 
 import java.io.*;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class RequestSwitch {
                 break;
             case "POST":
                 System.out.println("POST yes -----------------------------------------------------------------------");
-                // POSTResponce
+                new POSTResponse().method(httpRequest,out,dataOut);
                 break;
             default:
                 File file = new File(FileHandler.WEB_ROOT, FileHandler.METHOD_NOT_SUPPORTED);
