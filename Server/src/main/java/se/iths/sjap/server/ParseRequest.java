@@ -22,8 +22,12 @@ public class ParseRequest {
             if(splitHeader.length > 1)
                 reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
         }
-         int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
-         int contentLenghtFromJson = 0;
+
+         String one = (reqIn.getHeaders().get("Content-Length"));
+         one = one.replace(" ", "");
+
+            int contentLenght = Integer.parseInt(one);  //65
+            int contentLenghtFromJson = 0;
 
             // Get json body, if a json file is send from client
             if (contentLenght > 0 ){

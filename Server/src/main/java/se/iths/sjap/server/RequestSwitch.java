@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class RequestSwitch {
 
-    public void Request(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException, FileNotFoundException {
+    public void Request(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
         switch (httpRequest.getStartLineImplementation()) {
             case "GET":
