@@ -24,7 +24,6 @@ public class ServerConnector implements Runnable {
         String fileRequested = null;
 
         try {
-            System.out.println("Reading and parsing data..");
             // we read characters from the client via input stream on the socket
             in = new BufferedReader(new InputStreamReader(connect.getInputStream()));
             // we get character output stream to client (for headers)
@@ -35,7 +34,8 @@ public class ServerConnector implements Runnable {
             //parse the request to a javaObject
             HTTPRequest httpRequest = new HTTPRequest();
             httpRequest = new ParseRequest().parse(httpRequest, in);
-            fileRequested = httpRequest.StartLineURL;
+
+            //fileRequested = httpRequest.StartLineURL;
 
             new RequestSwitch().Request(httpRequest, out, dataOut);
 

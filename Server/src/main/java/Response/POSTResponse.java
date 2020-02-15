@@ -16,8 +16,7 @@ public class POSTResponse {
 
     public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
-
-        FileWriter jsonFileFromInsomnia = new FileWriter("johanna.json");
+        FileWriter jsonFileFromInsomnia = new FileWriter(WEB_ROOT + "/johanna.json");
 
         try {
             jsonFileFromInsomnia.write(httpRequest.getJsonObject().toString());
@@ -59,18 +58,7 @@ public class POSTResponse {
                 e.printStackTrace();
             }
         }
-
-        //-----------------------------------------------------
-
-
-
-
-
-
     }
-
-
-
 
 
 

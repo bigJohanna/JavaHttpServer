@@ -7,7 +7,7 @@ import java.io.IOException;
 public class ParseRequest {
 
      public HTTPRequest parse(HTTPRequest reqIn, BufferedReader in) throws IOException {
-
+         System.out.println("Parsing ---------------------");
              // Get starline
          String[] splitHead = in.readLine().split(" ");
          reqIn.setStartLineImplementation(splitHead[0].toUpperCase());
@@ -22,21 +22,17 @@ public class ParseRequest {
              if(splitHeader.length > 1)
                  reqIn.getHeaders().put(splitHeader[0], splitHeader[1]);
          }
-         // system.out headers
-         reqIn.getHeaders().entrySet().forEach(entry->{
-             System.out.println(entry.getKey() + " " + entry.getValue());
-         });
 
          // Get json body
       
          if (reqIn.StartLineImplementation.equals("POST") || reqIn.StartLineImplementation.equals("PUT") ) {
-
+             System.out.println("JSON-------------");
              int contentLenght = Integer.parseInt((reqIn.getHeaders().get("Content-Length")).replace(" ", ""));  //65
              int contentLenghtFromJson = 0;
              String jsonBody = "";
 
              if (contentLenght > 0) {
-
+                 System.out.println("Still JSON------------------");
                  char[] sizeByContentLenght = new char[contentLenght];
                  in.read(sizeByContentLenght, 0, contentLenght);
 
@@ -47,7 +43,6 @@ public class ParseRequest {
                  reqIn.setJsonObject(jsonObject);
              }
          }
-         System.out.println(reqIn.getJsonObject().toString());
 
          return  reqIn;
     }
