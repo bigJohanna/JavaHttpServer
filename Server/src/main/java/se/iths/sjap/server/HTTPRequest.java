@@ -1,8 +1,5 @@
 package se.iths.sjap.server;
-
 import com.google.gson.JsonObject;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 
 public class HTTPRequest {
@@ -10,9 +7,7 @@ public class HTTPRequest {
     String StartLineImplementation;
     String StartLineURL;
     String StartLineStatus;
-
     HashMap<String, String> headers = new HashMap<String, String>();
-
     JsonObject jsonObject;
 
     public JsonObject getJsonObject() {
@@ -20,7 +15,7 @@ public class HTTPRequest {
     }
 
     public void setJsonObject(JsonObject jsonObject) {
-        this.jsonObject = jsonObject;
+       this.jsonObject = jsonObject;
     }
 
     public String getStartLineStatus() {

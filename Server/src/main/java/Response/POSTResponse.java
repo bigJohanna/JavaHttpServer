@@ -1,6 +1,8 @@
 package Response;
 
 //import org.json.simple.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import se.iths.sjap.server.HTTPRequest;
 
 import java.io.*;
@@ -12,18 +14,21 @@ import static Response.FileHandler.FILE_NOT_FOUND;
 import static Response.FileHandler.WEB_ROOT;
 
 public class POSTResponse {
-    private String fileRequested = "johanna.json";
 
     public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
-        FileWriter jsonFileFromInsomnia = new FileWriter(WEB_ROOT + "/johanna.json");
+        String fileRequested = "johanna.json";
 
-        try {
-            jsonFileFromInsomnia.write(httpRequest.getJsonObject().toString());
-            jsonFileFromInsomnia.flush();
+        // If Json file
+        if(httpRequest.getHeaders().get("Content-Type").replace(" ", "").equals("application/json")){
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            FileWriter jsonFileFromInsomnia = new FileWriter(WEB_ROOT + "/johanna.json");
+            try {
+                jsonFileFromInsomnia.write(httpRequest.getJsonObject().toString());
+                jsonFileFromInsomnia.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         //TODO här behövs en rad för att spara över  johanna.json i resorce med den som vi skapat på rad 20
