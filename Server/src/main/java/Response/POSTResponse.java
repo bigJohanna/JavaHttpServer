@@ -31,9 +31,6 @@ public class POSTResponse {
             }
         }
 
-        //TODO här behövs en rad för att spara över  johanna.json i resorce med den som vi skapat på rad 20
-
-
         try {
 
             File file2 = new File(FileHandler.WEB_ROOT, fileRequested);
