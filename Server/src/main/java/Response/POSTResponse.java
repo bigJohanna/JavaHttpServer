@@ -1,6 +1,6 @@
 package Response;
 
-import org.json.simple.JSONObject;
+//import org.json.simple.JSONObject;
 import se.iths.sjap.server.HTTPRequest;
 
 import java.io.*;
@@ -64,7 +64,7 @@ public class POSTResponse {
 
 
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".json") || fileRequested.endsWith(".json"))
+        if (fileRequested.endsWith(".json"))
             return "text/json";
         else
             return "text/plain";
