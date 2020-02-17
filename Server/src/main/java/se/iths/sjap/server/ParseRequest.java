@@ -26,6 +26,21 @@ public class ParseRequest {
 
          // Get json body
          if (httpRequest.StartLineImplementation.equals("POST") || httpRequest.StartLineImplementation.equals("PUT") ) {
+                if(httpRequest.getStartLineURL().contains("?")){
+                    String params = httpRequest.getStartLineURL().substring(8);
+
+                    String[] splitParams = params.split("=");
+                   String param1 = splitParams[0];
+                   String value1 = splitParams[1];
+                    String jsonParams = "{\""+param1 + "\":\"" + value1 + "\"}";
+
+                    JsonObject jsonObject = new JsonParser().parse(jsonParams).getAsJsonObject();
+                    httpRequest.setJsonObject(jsonObject);
+                    httpRequest.setHeaders("Content-Type", "application/json");
+
+                    return httpRequest;
+                }
+
 
              // If json file is comming from client, have no method for xml...
              if(httpRequest.getHeaders().get("Content-Type").replace(" ", "").equals("application/json")){
