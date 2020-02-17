@@ -1,21 +1,19 @@
 package se.iths.sjap.server;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class ParseRequest {
 
      public HTTPRequest parse(HTTPRequest httpRequest, BufferedReader in) throws IOException {
-         System.out.println("Parsing ---------------------");
-         // Get starline
+         System.out.println("Parsing request");
+
          String[] splitHead = in.readLine().split(" ");
          httpRequest.setStartLineImplementation(splitHead[0].toUpperCase());
          httpRequest.setStartLineURL(splitHead[1]);
          httpRequest.setStartLineStatus(splitHead[2]);
 
-         // Get headers
          String headerLine  = "avoid null";
          while (!headerLine.isEmpty()) {
              headerLine = in.readLine();
@@ -24,7 +22,6 @@ public class ParseRequest {
                  httpRequest.getHeaders().put(splitHeader[0], splitHeader[1]);
          }
 
-         // Get json body
          if (httpRequest.StartLineImplementation.equals("POST") || httpRequest.StartLineImplementation.equals("PUT") ) {
                 if(httpRequest.getStartLineURL().contains("?")){
                     String[] splitParamPairs = httpRequest.getStartLineURL().split("\\?");
@@ -41,8 +38,6 @@ public class ParseRequest {
                     return httpRequest;
                 }
 
-
-             // If json file is comming from client, have no method for xml...
              if(httpRequest.getHeaders().get("Content-Type").replace(" ", "").equals("application/json")){
                  int contentLenght = Integer.parseInt((httpRequest.getHeaders().get("Content-Length")).replace(" ", ""));
                  int contentLenghtFromJson = 0;
