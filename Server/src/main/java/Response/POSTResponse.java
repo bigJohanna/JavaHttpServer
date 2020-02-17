@@ -15,6 +15,11 @@ import static Response.FileHandler.WEB_ROOT;
 
 public class POSTResponse {
 
+    //läsa av parametrar
+    //lägg in i ett jsonobject
+    //skicka tillbaka till clienten
+
+
     public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
         String fileRequested = "johanna.json";
@@ -46,7 +51,6 @@ public class POSTResponse {
             out.print("Content-length: " + fileLength + "\r\n");
             out.print("\r\n"); // blank line between headers and content, very important !
             out.flush(); // flush character output stream buffer
-
 
             //TODO Här kan man skriva ut Json filen som text???
 
