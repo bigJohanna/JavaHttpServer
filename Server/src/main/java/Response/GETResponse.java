@@ -12,7 +12,7 @@ public class GETResponse {
         public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
             try {
-                    String file = httpRequest.getStartLineURL() + ".html";
+                    String file = httpRequest.getStartLineURL();
 
                     if (httpRequest.getStartLineURL().length() > 1) {
                         fileRequested = file.substring(1);
@@ -29,8 +29,8 @@ public class GETResponse {
                     out.print("Date: " + new Date() + "\r\n");
                     out.print("Content-type: " + content + "\r\n");
                     out.print("Content-length: " + fileLength + "\r\n");
-                    out.print("\r\n"); // blank line between headers and content, very important !
-                    out.flush(); // flush character output stream buffer
+                    out.print("\r\n");
+                    out.flush();
 
                     dataOut.write(fileData, 0, fileLength);
                     dataOut.flush();
@@ -46,7 +46,7 @@ public class GETResponse {
 
     private String getContentType(String fileRequested) {
         String[] suffix = fileRequested.split("\\.");
-        return "text/." + suffix[suffix.length-1];
+        return "text/" + suffix[suffix.length-1];
     }
 
 }
