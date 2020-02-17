@@ -13,7 +13,7 @@ public class HEADResponse {
 
     public void method(HTTPRequest httpRequest, PrintWriter out, BufferedOutputStream dataOut) throws IOException {
 
-            String file = httpRequest.getStartLineURL() + ".html";
+            String file = httpRequest.getStartLineURL();
             if (httpRequest.getStartLineURL().length() > 1) {
                 fileRequested = file.substring(1);
             }
@@ -37,6 +37,6 @@ public class HEADResponse {
 
     private String getContentType(String fileRequested) {
         String[] suffix = fileRequested.split("\\.");
-        return "text/." + suffix[suffix.length-1];
+        return "text/" + suffix[suffix.length-1];
     }
 }

@@ -68,6 +68,6 @@ public class POSTResponse {
 
     private String getContentType(String fileRequested) {
         String[] suffix = fileRequested.split("\\.");
-        return "text/." + suffix[suffix.length-1];
+        return "text/" + suffix[suffix.length-1];
     }
 }
