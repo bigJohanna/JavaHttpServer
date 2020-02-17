@@ -67,9 +67,7 @@ public class POSTResponse {
     }
 
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".json"))
-            return "text/json";
-        else
-            return "text/plain";
+        String[] suffix = fileRequested.split("\\.");
+        return "text/." + suffix[suffix.length-1];
     }
 }

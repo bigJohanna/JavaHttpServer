@@ -15,8 +15,7 @@ public class HEADResponse {
 
             String file = httpRequest.getStartLineURL() + ".html";
             if (httpRequest.getStartLineURL().length() > 1) {
-                fileRequested = file;
-                fileRequested.substring(1);
+                fileRequested = file.substring(1);
             }
 
             File file2 = new File(FileHandler.WEB_ROOT, fileRequested);
@@ -37,9 +36,7 @@ public class HEADResponse {
     }
 
     private String getContentType(String fileRequested) {
-        if (fileRequested.endsWith(".htm")  ||  fileRequested.endsWith(".html"))
-            return "text/html";
-        else
-            return "text/plain";
+        String[] suffix = fileRequested.split("\\.");
+        return "text/." + suffix[suffix.length-1];
     }
 }
