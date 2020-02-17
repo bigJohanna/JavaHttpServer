@@ -43,7 +43,6 @@ public class GETResponse {
                         e.printStackTrace();
             }
         }
-
     }
 
     private String getContentType(String fileRequested) {
@@ -53,8 +52,5 @@ public class GETResponse {
         else
             return "text/plain";
     }
-
-
-
 
 }
