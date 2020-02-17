@@ -27,9 +27,9 @@ public class ParseRequest {
          // Get json body
          if (httpRequest.StartLineImplementation.equals("POST") || httpRequest.StartLineImplementation.equals("PUT") ) {
                 if(httpRequest.getStartLineURL().contains("?")){
-                    String params = httpRequest.getStartLineURL().substring(8);
+                    String[] splitParamPairs = httpRequest.getStartLineURL().split("\\?");
 
-                    String[] splitParams = params.split("=");
+                    String[] splitParams = splitParamPairs[1].split("=");
                    String param1 = splitParams[0];
                    String value1 = splitParams[1];
                     String jsonParams = "{\""+param1 + "\":\"" + value1 + "\"}";
